@@ -1,0 +1,23 @@
+# Секрети та змінні середовища
+.env
+kaggle.json
+
+# Великі файли даних (щоб не перевищити ліміти GitHub)
+*.csv
+dataset.csv
+
+# Віртуальне середовище Python
+venv/
+.venv/
+env/
+
+# Кеш Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Системні файли та IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
