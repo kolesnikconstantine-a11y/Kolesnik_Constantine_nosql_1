@@ -91,15 +91,31 @@ printExplainSummary("ПІСЛЯ створення індексу (Завдан�
 
 
 // ======================================================
-// Завдання 3 (перевірка). Покривний запит (Covered Query)
+// Завдання 3. Покривний запит (Covered Query) — порівняння в терміналі
 // ======================================================
 print("\n======================================================");
-print("Завдання 3: Перевірка explain() для запиту без проєкції");
+print("Завдання 3: Порівняння звичайного запиту та Covered Query");
 print("======================================================");
 
-const explainTask3 = db.tracks.find({
+// 3.1. Вихідний запит із завдання (БЕЗ проєкції -> НЕ є covered query)
+const explainNotCovered = db.tracks.find({
   track_genre: "pop",
   popularity: { $gte: 70 }
 }).explain("executionStats");
 
-printExplainSummary("Завдання 3 (без проєкції — НЕ covered query)", explainTask3);
+printExplainSummary("3.1. БЕЗ проєкції (НЕ covered query -> стадія FETCH)", explainNotCovered);
+
+// 3.2. Покривний запит (ІЗ проєкцією та _id: 0 -> COVERED QUERY)
+const explainCovered = db.tracks.find(
+  {
+    track_genre: "pop",
+    popularity: { $gte: 70 }
+  },
+  {
+    _id: 0,
+    track_genre: 1,
+    popularity: 1
+  }
+).explain("executionStats");
+
+printExplainSummary("3.2. ІЗ проєкцією (COVERED QUERY -> totalDocsExamined: 0)", explainCovered);

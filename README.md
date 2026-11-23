@@ -236,3 +236,4 @@ db.tracks.find(
 );
 ```
 У такому вигляді `explain("executionStats")` покаже `totalDocsExamined: 0` та план виконання `PROJECTION_COVERED` ← `IXSCAN`.
+![Explain Plan](images/Visual_3.png)
