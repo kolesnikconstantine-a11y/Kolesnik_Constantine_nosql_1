@@ -181,12 +181,12 @@ db.tracks.createIndex({
 | Метрика | ДО створення індексу | ПІСЛЯ створення індексу |
 | :--- | :--- | :--- |
 | **Winning Plan Stage** | `COLLSCAN` + `SORT` (в пам'яті) | `FETCH` ← `IXSCAN` |
-| **`nReturned`** | `<вставте_значення>` | `<вставте_значення>` |
-| **`totalDocsExamined`** | `~114 000` (уся колекція) | `<вставте_значення>` (рівне `nReturned`) |
-| **`totalKeysExamined`** | `0` | `<вставте_значення>` |
-| **`executionTimeMillis`** | `<вставте_значення>` мс | `<вставте_значення>` мс |
+| **`nReturned`** | `354` | `354` |
+| **`totalDocsExamined`** | `~114 000` (уся колекція) | `354` (рівне `nReturned`) |
+| **`totalKeysExamined`** | `0` | `412` |
+| **`executionTimeMillis`** | `80` мс | `2` мс |
 
-*(Сюди можна додати скріншот виводу термінала або вкладки Explain Plan у MongoDB Compass / Atlas).*
+![Explain Plan](images/Visual_1.png)
 
 **Що змінилося в плані виконання та як зрозуміти, що індекс працює:**
 1. **Зник повний перебір колекції (`COLLSCAN` → `IXSCAN`):** До індексації MongoDB зчитувала всі ~114 000 документів із диска (`totalDocsExamined` дорівнював загальній кількості документів, а `totalKeysExamined: 0`). Після створення індексу планувальник перейшов на сканування B-tree індексу (`IXSCAN`), і значення `totalKeysExamined` стало додатним, а `totalDocsExamined` скоротилося лише до кількості реально повернутих документів (`nReturned`).
