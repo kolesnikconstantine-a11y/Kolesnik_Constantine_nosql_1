@@ -205,9 +205,10 @@ db.tracks.createIndex({
 });
 ```
 
-* **До індексу:** `stage: "COLLSCAN"`, `totalDocsExamined: ~114 000`, `totalKeysExamined: 0`, `executionTimeMillis: <вставте_значення>` мс.
-* **Після індексу:** `stage: "IXSCAN"`, `totalDocsExamined: <вставте_значення>`, `totalKeysExamined: <вставте_значення>`, `executionTimeMillis: <вставте_значення>` мс.
+* **До індексу:** `stage: "COLLSCAN"`, `totalDocsExamined: ~114 000`, `totalKeysExamined: 0`, `executionTimeMillis: 131` мс.
+* **Після індексу:** `stage: "IXSCAN"`, `totalDocsExamined: 16141`, `totalKeysExamined: 16602`, `executionTimeMillis: 36` мс.
 
+![Explain Plan](images/Visual_2.png)
 ---
 
 ### Завдання 3. Чи є запит покривним (Covered Query)?
